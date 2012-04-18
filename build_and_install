@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alldirs=("apiextractor" "generatorrunner" "shiboken" "pyside" "pyside-tools")
+alldirs=("shiboken" "pyside" "pyside-tools")
 
 if [ $# == 0 ] ; then
     dirs=("${alldirs[@]}")
@@ -14,7 +14,7 @@ for d in "${dirs[@]}" ; do
     (
         source environment.sh
 
-        if [ "`uname -s`" == "Darwin" ]; then
+        if [ 0 -a "`uname -s`" == "Darwin" ]; then
             # When running on Mac OS X, we need to specify the
             # Qt include dir for the header files to be found.
             echo "$0: Mac OS X detected (uname -s gave 'Darwin')."
@@ -27,7 +27,7 @@ for d in "${dirs[@]}" ; do
         cd "$d/build"
         cmake .. -DCMAKE_INSTALL_PREFIX=$PYSIDESANDBOXPATH \
                  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-                 -DENABLE_ICECC=0 \
+                 -DENABLE_ICECC=0 -DCMAKE_CXX_FLAGS=-m32 \
                  $PYSIDE_BS_CMAKE_FLAGS \
             && make -j4 && make install || exit 1
     ) || exit 1
