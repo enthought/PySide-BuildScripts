@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Initializes the repository by cloning PySide, Shiboken, and PySide-Tools.  Git submodules
 # don't work well here because we frequently make changes to these other packages and want

@@ -27,6 +27,7 @@ for d in "${dirs[@]}" ; do
         cd "$d/build"
         cmake .. -DCMAKE_INSTALL_PREFIX=$PYSIDESANDBOXPATH \
                  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+                 -DQT_QTUITOOLS_INCLUDE_DIR=$QT_QTUITOOLS_INCLUDE_DIR \
                  -DENABLE_ICECC=0 -DCMAKE_CXX_FLAGS=-m32 \
                  $PYSIDE_BS_CMAKE_FLAGS \
             && make -j4 && make install || exit 1
