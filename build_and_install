@@ -14,7 +14,7 @@ for d in "${dirs[@]}" ; do
     (
         source environment.sh
 
-        if [ 0 -a "`uname -s`" == "Darwin" ]; then
+        if [ "`uname -s`" == "Darwin" ]; then
             # When running on Mac OS X, we need to specify the
             # Qt include dir for the header files to be found.
             echo "$0: Mac OS X detected (uname -s gave 'Darwin')."
