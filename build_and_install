@@ -46,6 +46,10 @@ done
 # to the executable so we don't have to (DY)LD_LIBRARY_PATH.
 eggdir=build/lib/python2.7/site-packages/PySide
 if [ "`uname -s`" == "Darwin" ]; then
-    install_name_tool -change "libpyside-python2.7.1.1.dylib" "@executable_path/../lib/libpyside-python2.7.1.1.dylib" $eggdir/QtCore.so
-    install_name_tool -change "libshiboken-python2.7.1.1.dylib" @executable_path/../lib/libshiboken-python2.7.1.1.dylib $eggdir/QtCore.so
+    echo "Fixing shared-library load paths..."
+    for so in $eggdir/*.so
+    do
+        install_name_tool -change "libpyside-python2.7.1.1.dylib" "@executable_path/../lib/libpyside-python2.7.1.1.dylib" $so
+        install_name_tool -change "libshiboken-python2.7.1.1.dylib" @executable_path/../lib/libshiboken-python2.7.1.1.dylib $so
+    done
 fi
