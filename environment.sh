@@ -5,8 +5,8 @@
 # debugging version of Python installed and uncomment this line:
 export BUILD_TYPE=Release
 #export BUILD_TYPE=Debug
-#export QT_SRC_DIR=/Users/jmccampbell/packages/qt-qt
-#export QT_QTUITOOLS_INCLUDE_DIR=/Users/jmccampbell/packages/Qt-4.7/include/QtUiTools
+export QT_SRC_DIR=/Users/builder/packages/qt-src
+export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
 
 # Get the Python version as "pythonx.y", e.g. "python2.6"
 PYTHONXY=`python -V 2>&1 | sed -e 's/Python 2\.\([0-9]*\).*/python2.\1/'`

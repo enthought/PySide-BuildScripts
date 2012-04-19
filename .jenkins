@@ -10,7 +10,7 @@ if [ ! -d pyside -o ! -d pyside/.git ]; then
     rm -fr PySide >& /dev/null
     git clone git@github.com:enthought/PySide pyside
 else
-    (cd pyside; git pull origin master)
+    (cd pyside; git pull origin master; git clean -f)
 fi
 
 echo "Checking Shiboken..."
@@ -18,7 +18,7 @@ if [ ! -d shiboken -o ! -d shiboken/.git ]; then
     rm -fr shiboken >& /dev/null
     git clone git@github.com:enthought/Shiboken shiboken
 else
-    (cd shiboken; git pull origin master)
+    (cd shiboken; git pull origin master; git clean -f)
 fi
 
 echo "Checking PySide-Tools..."
@@ -26,6 +26,6 @@ if [ ! -d pyside-tools -o ! -d pyside-tools/.git ]; then
     rm -fr pyside-tools >& /dev/null
     git clone git@github.com:enthought/PySide-Tools pyside-tools
 else
-    (cd pyside-tools; git pull origin master)
+    (cd pyside-tools; git pull origin master; git clean -f)
 fi
 
