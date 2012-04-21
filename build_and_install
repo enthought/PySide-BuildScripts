@@ -51,7 +51,7 @@ if [ "`uname -s`" == "Darwin" ]; then
     do
         install_name_tool -change "libpyside-python2.7.1.1.dylib" "@executable_path/../lib/libpyside-python2.7.1.1.dylib" $so
         install_name_tool -change "libshiboken-python2.7.1.1.dylib" @executable_path/../lib/libshiboken-python2.7.1.1.dylib $so
-        for qt in Core Gui Network Script ScriptTools Svg Sql XmlPatterns OpenGL Declarative
+        for qt in Core Gui Network WebKit Script ScriptTools Svg Sql XmlPatterns OpenGL Declarative Designer DesignerComponents Help Multimedia Test Xml XmlPatterns
         do
             install_name_tool -change "Qt$qt.framework/Versions/4/Qt$qt" @executable_path/../Frameworks/Qt$qt.framework/Versions/4/Qt$qt $so
         done
