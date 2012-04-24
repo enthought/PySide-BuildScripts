@@ -10,25 +10,26 @@ arch=$2
 
 # Note: the legal OS name values must match the labels given to the Jenkins build
 # slaves.  That is, MacOS, Windows, and Linux.
-if [ "$osName" != "MacOS" ]; then
-    echo "Invalid OS name, must be 'macosx'."
+if [ "$osName" == "MacOS" ]; then
+    ALT_QT_INC_DIR=/Library/Frameworks/
+
+    if [ "$arch" == "x86" ]; then
+        ADD_CFLAGS=-m32
+    elif [ "$arch" == "x86_64" ]; then
+        ADD_CFLAGS=-m64
+        
+        # Switch to 64-bit Python
+        export PATH=/Users/builder/Library/EPD/2.7-64/bin:$PATH
+    else
+        echo "Invalid architecture, must be 'x86' and 'x86_64'."
+        exit 1
+    fi
+else
+    echo "Invalid OS name, must be 'MacOS'."
     exit 1
 fi
 
-if [ "$arch" == "x86" ]; then
-    ADD_CFLAGS=-m32
-    ALT_QT_INC_DIR=/Library/Frameworks/
-elif [ "$arch" == "x86_64" ]; then
-    ADD_CFLAGS=-m64
-    ALT_QT_INC_DIR=/Users/builder/packages/Qt-4.7-64/include
-    export QT_SDK_HOME="$HOME/packages/Qt-4.7-64"
-    
-    # Switch to 64-bit Python
-    export PATH=/Users/builder/Library/EPD/2.7-64/bin:$PATH
-else
-    echo "Invalid architecture, must be 'x86' and 'x86_64'."
-    exit 1
-fi
+
 
 alldirs=("shiboken" "pyside" "pyside-tools")
 
