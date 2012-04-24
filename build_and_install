@@ -9,7 +9,7 @@ osName=$1
 arch=$2
 
 if [ "$osName" != "macosx" ]; then
-    echo "Invalid OS name, must be 'macosx'.
+    echo "Invalid OS name, must be 'macosx'."
     exit 1
 fi
 
@@ -20,8 +20,11 @@ elif [ "$arch" == "x86_64" ]; then
     ADD_CFLAGS=-m64
     ALT_QT_INC_DIR=/Users/builder/packages/Qt-4.7-64/
     QT_SDK_HOME="$HOME/packages/PyQt-4.7-64"
+    
+    # Switch to 64-bit Python
+    export PATH=/Users/builder/Library/EPD/2.7-64/bin:$PATH
 else
-    echo "Invalid architecture, must be 'x86' and 'x86_64'.
+    echo "Invalid architecture, must be 'x86' and 'x86_64'."
     exit 1
 fi
 
