@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 #
 # Usage: build_and_install <os> <arch>
-#   <os>:   macosx only for now.
+#   <os>:   MacOS for now.
 #   <arch>: x86 or x86_64
 #
 
 osName=$1
 arch=$2
 
-if [ "$osName" != "macosx" ]; then
+# Note: the legal OS name values must match the labels given to the Jenkins build
+# slaves.  That is, MacOS, Windows, and Linux.
+if [ "$osName" != "MacOS" ]; then
     echo "Invalid OS name, must be 'macosx'."
     exit 1
 fi
