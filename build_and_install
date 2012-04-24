@@ -1,12 +1,33 @@
 #!/usr/bin/env bash
+#
+# Usage: build_and_install <os> <arch>
+#   <os>:   macosx only for now.
+#   <arch>: x86 or x86_64
+#
+
+osName=$1
+arch=$2
+
+if [ "$osName" != "macosx" ]; then
+    echo "Invalid OS name, must be 'macosx'.
+    exit 1
+fi
+
+if [ "$arch" == "x86" ]; then
+    ADD_CFLAGS=-m32
+    ALT_QT_INC_DIR=/Library/Frameworks/
+elif [ "$arch" == "x86_64" ]; then
+    ADD_CFLAGS=-m64
+    ALT_QT_INC_DIR=/Users/builder/packages/Qt-4.7-64/
+    QT_SDK_HOME="$HOME/packages/PyQt-4.7-64"
+else
+    echo "Invalid architecture, must be 'x86' and 'x86_64'.
+    exit 1
+fi
 
 alldirs=("shiboken" "pyside" "pyside-tools")
 
-if [ $# == 0 ] ; then
-    dirs=("${alldirs[@]}")
-else
-    dirs=("$@")
-fi
+dirs=("${alldirs[@]}")
 
 for d in "${dirs[@]}" ; do
     rm -rf "$d/build"
@@ -18,7 +39,7 @@ for d in "${dirs[@]}" ; do
             # When running on Mac OS X, we need to specify the
             # Qt include dir for the header files to be found.
             echo "$0: Mac OS X detected (uname -s gave 'Darwin')."
-            PYSIDE_BS_CMAKE_FLAGS="-DALTERNATIVE_QT_INCLUDE_DIR=/Library/Frameworks/"
+            PYSIDE_BS_CMAKE_FLAGS="-DALTERNATIVE_QT_INCLUDE_DIR=$ALT_QT_INC_DIR"
         else
             # On Non-OS X builds, we enable this to fix a gcc bug
             PYSIDE_BS_CMAKE_FLAGS="-DENABLE_GCC_OPTIMIZATION=On"
@@ -31,7 +52,7 @@ for d in "${dirs[@]}" ; do
                  -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=1 \
                  -DCMAKE_INSTALL_RPATH="@executable_path/../lib" \
                  -DQT_QTUITOOLS_INCLUDE_DIR=$QT_QTUITOOLS_INCLUDE_DIR \
-                 -DENABLE_ICECC=0 -DCMAKE_CXX_FLAGS=-m32 \
+                 -DENABLE_ICECC=0 -DCMAKE_CXX_FLAGS=$ADD_CFLAGS \
                  $PYSIDE_BS_CMAKE_FLAGS \
             && make -j4 && make install || exit 1
     ) || exit 1
