@@ -3,6 +3,9 @@
 # Hacked method of building an egg until I better understand how pisi works.
 #
 
+# Sets 'version' to the current PySide build version
+. version.sh
+
 egginfo=egg/EGG-INFO
 
 echo "Extracting egg template..."
@@ -11,13 +14,13 @@ tar xfz egg-template.tgz
 # Inject the scripts, libraries, and eggs.
 echo "Copying scripts and libraires..."
 cp build/bin/pyside-lupdate build/bin/pyside-rcc build/bin/pyside-uic $egginfo/scripts
-cp build/lib/libpyside-python2.7.1.1.1.dylib build/lib/libshiboken-python2.7.1.1.1.dylib $egginfo/usr/lib
+cp build/lib/libpyside-python2.7.$version.dylib build/lib/libshiboken-python2.7.$version.dylib $egginfo/usr/lib
 
 echo "Copying in Python modules."
 (cd build/lib/python2.7/site-packages; tar cf - PySide pysideuic) | (cd egg; tar xf -)
 
 echo "Building egg..."
 mkdir -p dist
-(cd egg; zip -r9 ../dist/PySide-1.1.1-1.egg .)
+(cd egg; zip -r9 ../dist/PySide-$version-1.egg .)
 
 echo "Done"
