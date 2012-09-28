@@ -12,7 +12,7 @@ echo "Checking PySide..."
 if [ ! -d pyside -o ! -d pyside/.git ]; then
     rm -fr PySide >& /dev/null
     git clone git@github.com:enthought/PySide pyside
-    git checkout pyside-1.1.1-enthought
+    (cd pyside; git checkout pyside-1.1.1-enthought)
 else
     (cd pyside; git pull origin master; git clean -f; git checkout pyside-1.1.1-enthought)
 fi
@@ -21,7 +21,7 @@ echo "Checking Shiboken..."
 if [ ! -d shiboken -o ! -d shiboken/.git ]; then
     rm -fr shiboken >& /dev/null
     git clone git@github.com:enthought/Shiboken shiboken
-    git checkout pyside-1.1.1-enthought
+    (cd shiboke; git checkout pyside-1.1.1-enthought)
 else
     (cd shiboken; git pull origin master; git clean -f; git checkout pyside-1.1.1-enthought)
 fi
