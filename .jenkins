@@ -5,27 +5,33 @@
 # to get the latest changes.
 #
 
+echo "Cleaning build residue..."
+git clean -f
+
 echo "Checking PySide..."
 if [ ! -d pyside -o ! -d pyside/.git ]; then
     rm -fr PySide >& /dev/null
     git clone git@github.com:enthought/PySide pyside
+    git checkout pyside-1.1.1-enthought
 else
-    (cd pyside; git pull origin master; git clean -f)
+    (cd pyside; git pull origin master; git clean -f; git checkout pyside-1.1.1-enthought)
 fi
 
 echo "Checking Shiboken..."
 if [ ! -d shiboken -o ! -d shiboken/.git ]; then
     rm -fr shiboken >& /dev/null
     git clone git@github.com:enthought/Shiboken shiboken
+    git checkout pyside-1.1.1-enthought
 else
-    (cd shiboken; git pull origin master; git clean -f)
+    (cd shiboken; git pull origin master; git clean -f; git checkout pyside-1.1.1-enthought)
 fi
 
 echo "Checking PySide-Tools..."
 if [ ! -d pyside-tools -o ! -d pyside-tools/.git ]; then
     rm -fr pyside-tools >& /dev/null
     git clone git@github.com:enthought/PySide-Tools pyside-tools
+    git checkout pyside-1.1.1-enthought
 else
-    (cd pyside-tools; git pull origin master; git clean -f)
+    (cd pyside-tools; git pull origin master; git clean -f; git checkout pyside-1.1.1-enthought)
 fi
 
