@@ -21,7 +21,7 @@ echo "Checking Shiboken..."
 if [ ! -d shiboken -o ! -d shiboken/.git ]; then
     rm -fr shiboken >& /dev/null
     git clone git@github.com:enthought/Shiboken shiboken
-    (cd shiboke; git checkout pyside-1.1.1-enthought)
+    (cd shiboken; git checkout pyside-1.1.1-enthought)
 else
     (cd shiboken; git pull origin master; git clean -fd; git checkout pyside-1.1.1-enthought)
 fi
