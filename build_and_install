@@ -92,4 +92,10 @@ if [ "`uname -s`" == "Darwin" ]; then
             install_name_tool -change "Qt$qt.framework/Versions/4/Qt$qt" @executable_path/../Frameworks/Qt$qt.framework/Versions/4/Qt$qt $so
         done
     done
+
+elif [ "$osName" == "Linux" ];
+    echo "Fixing rpath of libraries..."
+    patchelf --set-rpath "\$ORIGIN/../lib" build/lib/libpyside*.so
+    patchelf --set-rpath "\$ORIGIN/../lib" build/lib/libshiboken*.so
+    patchelf --set-rpath "\$ORIGIN/../../.." $eggdir/*.so
 fi
