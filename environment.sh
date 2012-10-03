@@ -6,7 +6,11 @@
 export BUILD_TYPE=Release
 #export BUILD_TYPE=Debug
 export QT_SRC_DIR=/Users/builder/packages/qt-src
-export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
+if [ "$osName" == "MacOS" ]; then
+    export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
+elif [ "$osName" == "Linux" ]; then
+    export QT_QTUITOOLS_INCLUDE_DIR=/home/builder/opt/include/QtUiTools
+fi
 
 # Get the Python version as "pythonx.y", e.g. "python2.6"
 PYTHONXY=`python -V 2>&1 | sed -e 's/Python 2\.\([0-9]*\).*/python2.\1/'`
