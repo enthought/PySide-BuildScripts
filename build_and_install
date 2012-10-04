@@ -96,7 +96,9 @@ if [ "`uname -s`" == "Darwin" ]; then
 
 elif [ "$osName" == "Linux" ]; then
     echo "Fixing rpath of libraries..."
-    patchelf --set-rpath "\$ORIGIN/../lib" build/lib/libpyside*.so
-    patchelf --set-rpath "\$ORIGIN/../lib" build/lib/libshiboken*.so
-    patchelf --set-rpath "\$ORIGIN/../../.." $eggdir/*.so
+    patchelf --set-rpath "\$ORIGIN/../lib" --force-rpath build/lib/libpyside*.so
+    patchelf --set-rpath "\$ORIGIN/../lib" --force-rpath build/lib/libshiboken*.so
+    for f in $eggdir/*.so; do
+	patchelf --set-rpath "\$ORIGIN/../../.." --force-rpath $f
+    done
 fi
