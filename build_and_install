@@ -48,7 +48,9 @@ for d in "${dirs[@]}" ; do
             # When running on Mac OS X, we need to specify the
             # Qt include dir for the header files to be found.
             echo "$0: Mac OS X detected (uname -s gave 'Darwin')."
-            PYSIDE_BS_CMAKE_FLAGS="-DALTERNATIVE_QT_INCLUDE_DIR=$ALT_QT_INC_DIR"
+            PYSIDE_BS_CMAKE_FLAGS="-DALTERNATIVE_QT_INCLUDE_DIR=$ALT_QT_INC_DIR \
+                                   -DQT_QTUITOOLS_INCLUDE_DIR=$QT_QTUITOOLS_INCLUDE_DIR "
+
 	elif [ "$osName" == "Linux" ]; then
 	    PY_PREFIX=$(python -c "import sys; print sys.prefix")
 	    PYSIDE_BS_CMAKE_FLAGS=" -DENABLE_GCC_OPTIMIZATION=On \
@@ -66,7 +68,6 @@ for d in "${dirs[@]}" ; do
                  -DQT_INCLUDE_DIR=$ALT_QT_INC_DIR \
                  -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=1 \
                  -DCMAKE_INSTALL_RPATH="@executable_path/../lib" \
-                 -DQT_QTUITOOLS_INCLUDE_DIR=$QT_QTUITOOLS_INCLUDE_DIR \
                  -DENABLE_ICECC=0 -DCMAKE_CXX_FLAGS=$ADD_CFLAGS \
                  $PYSIDE_BS_CMAKE_FLAGS \
             && make -j4 && make install || exit 1
@@ -93,7 +94,7 @@ if [ "`uname -s`" == "Darwin" ]; then
         done
     done
 
-elif [ "$osName" == "Linux" ];
+elif [ "$osName" == "Linux" ]; then
     echo "Fixing rpath of libraries..."
     patchelf --set-rpath "\$ORIGIN/../lib" build/lib/libpyside*.so
     patchelf --set-rpath "\$ORIGIN/../lib" build/lib/libshiboken*.so

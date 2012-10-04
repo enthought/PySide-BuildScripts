@@ -8,8 +8,6 @@ export BUILD_TYPE=Release
 export QT_SRC_DIR=/Users/builder/packages/qt-src
 if [ "$osName" == "MacOS" ]; then
     export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
-elif [ "$osName" == "Linux" ]; then
-    export QT_QTUITOOLS_INCLUDE_DIR=/home/builder/opt/include/QtUiTools
 fi
 
 # Get the Python version as "pythonx.y", e.g. "python2.6"
