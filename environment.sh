@@ -3,10 +3,10 @@
 
 # If you want to build a Debug release, make sure to have the
 # debugging version of Python installed and uncomment this line:
-export BUILD_TYPE=Release
-#export BUILD_TYPE=Debug
-export QT_SRC_DIR=/Users/builder/packages/qt-src
+#export BUILD_TYPE=Release
+export BUILD_TYPE=Debug
 if [ "$osName" == "MacOS" ]; then
+    export QT_SRC_DIR=/Users/builder/packages/qt-src
     export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
 fi
 
