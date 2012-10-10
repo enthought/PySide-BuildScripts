@@ -11,7 +11,8 @@ arch=$2
 # Note: the legal OS name values must match the labels given to the Jenkins build
 # slaves.  That is, MacOS, Windows, and Linux.
 if [ "$osName" == "MacOS" ]; then
-    ALT_QT_INC_DIR=/Library/Frameworks/
+    #ALT_QT_INC_DIR=/Library/Frameworks/
+    ALT_QT_INC_DIR=$QT_PREFIX/include
 
     if [ "$arch" == "x86" ]; then
         ADD_CFLAGS=-m32
