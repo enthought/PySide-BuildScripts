@@ -1,4 +1,4 @@
-#!/bin/sh
+#m!/bin/sh
 
 
 # If you want to build a Debug release, make sure to have the
@@ -6,8 +6,15 @@
 #export BUILD_TYPE=Release
 export BUILD_TYPE=Debug
 if [ "$osName" == "MacOS" ]; then
-    export QT_SRC_DIR=/Users/builder/packages/qt-src
-    export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
+#    export QT_SRC_DIR=/Users/builder/packages/qt-src
+#    export QT_QTUITOOLS_INCLUDE_DIR=/Users/builder/packages/qt-src/include/QtUiTools
+     export ALT_QT_INC_DIR=$QT_PREFIX/include
+     export QT_QTUITOOLS_INCLUDE_DIR=$QT_PREFIX/include/QtUiTools
+     export DYLD_FRAMEWORK_PATH=$QT_PREFIX/lib:$DYLD_FRAMEWORK_PATH   
+     export LD_LIBRARY_PATH=$QT_PREFIX/lib:$LD_LIBRARY_PATH   
+     export DYLD_LIBRARY_PATH=$QT_PREFIX/lib:$DYLD_LIBRARY_PATH
+#     echo $DYLD_FRAMEWORK_PATH
+#     echo $DYLD_LIBRARY_PATH
 fi
 
 # Get the Python version as "pythonx.y", e.g. "python2.6"
